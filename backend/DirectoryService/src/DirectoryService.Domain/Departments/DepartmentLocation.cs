@@ -28,7 +28,7 @@ public sealed class DepartmentLocation
     public void SetAsPrimary(IEnumerable<DepartmentLocation> departmentLocations)
     {
         foreach (var l in departmentLocations)
-            if (l != this)
+            if (l != this && l.DepartmentId == DepartmentId)
                 l.SetPrimaryStatus(false);
         SetPrimaryStatus(true);
     }
