@@ -5,7 +5,7 @@ public record LocationAddress
     public LocationAddress(string value)
     {
         if (string.IsNullOrWhiteSpace(value)) 
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(value));
+            throw new ArgumentException("Adress cannot be null or whitespace.", nameof(value));
         Value = value;
     }
     
