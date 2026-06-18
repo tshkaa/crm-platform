@@ -5,7 +5,7 @@ public record Title
     public Title(string value)
     {
         if (string.IsNullOrWhiteSpace(value)) 
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(value));
+            throw new ArgumentException("Title cannot be null or whitespace.", nameof(value));
         Value = value;
     }
     
