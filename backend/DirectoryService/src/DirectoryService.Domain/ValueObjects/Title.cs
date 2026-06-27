@@ -8,6 +8,6 @@ public record Title
             throw new ArgumentException("Title cannot be null or whitespace.", nameof(value));
         Value = value;
     }
-    
+
     public string Value { get; }
 }
