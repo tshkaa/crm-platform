@@ -4,9 +4,9 @@ using DirectoryService.Domain.Locations;
 using DirectoryService.Domain.Positions;
 namespace DirectoryService.Infrastructure.Postgres;
 
-public class AppDBContext : DbContext
+public class AppDbContext : DbContext
 {
-    public AppDBContext(DbContextOptions<AppDBContext> options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
