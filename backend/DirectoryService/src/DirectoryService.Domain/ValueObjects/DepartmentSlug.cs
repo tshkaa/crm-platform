@@ -9,8 +9,10 @@ public partial class DepartmentSlug
 
     public DepartmentSlug(string value)
     {
+#pragma warning disable CA1308 // Нормализуйте строки до прописных букв
         string normalized = value.Trim().ToLowerInvariant();
-        
+#pragma warning restore CA1308 // Нормализуйте строки до прописных букв
+
         if (normalized.Length < MinLength || normalized.Length > MaxLength)
         {
             throw new ArgumentException(
