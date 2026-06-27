@@ -12,14 +12,14 @@ public sealed class Location
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
     }
-    
-    public Guid Id { get; private set; }
-    
+
+    public Guid Id { get; }
+
     public Title Name { get; private set; }
-    
+
     public LocationAddress Address { get; private set; }
-    
+
     public DateTime CreatedAt { get; private set; }
-    
+
     public DateTime UpdatedAt { get; private set; }
 }
