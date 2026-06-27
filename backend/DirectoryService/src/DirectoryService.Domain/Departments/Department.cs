@@ -16,9 +16,12 @@ public sealed class Department
         {
             // Корневой отдел должен иметь путь, совпадающий с его slag
             if (path != null && !string.Equals(path.Value, slug.Value, StringComparison.Ordinal))
+            {
                 throw new ArgumentException(
-                    $"For root department, path '{path.Value}' must equal slug '{slug.Value}'.", 
+                    $"For root department, path '{path.Value}' must equal slug '{slug.Value}'.",
                     nameof(path));
+            }
+
             path ??= new DepartmentPath(slug.Value);
         }
         else
@@ -28,7 +31,7 @@ public sealed class Department
             if(!path.Value.EndsWith($"/{slug.Value}", StringComparison.Ordinal))
                 throw new ArgumentException("Department path must end with the slug.", nameof(path));
         }
-        
+
         Id = Guid.CreateVersion7();
         Name = name;
         Slug = slug;
@@ -37,18 +40,18 @@ public sealed class Department
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
     }
-    
-    public Guid Id { get; private set; }
+
+    public Guid Id { get; }
 
     public Title Name { get; private set; }
-    
+
     public DepartmentSlug Slug { get; private set; }
-    
+
     public DepartmentPath Path { get; private set; }
-    
+
     public Guid? ParentId { get; private set; }
-    
+
     public DateTime CreatedAt { get; private set; }
-    
+
     public DateTime UpdatedAt { get; private set; }
 }
