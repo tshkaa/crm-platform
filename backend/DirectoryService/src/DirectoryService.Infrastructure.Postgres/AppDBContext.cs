@@ -10,6 +10,11 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
 
     public DbSet<Department> Departments { get; set; }
     public DbSet<Location> Locations { get; set; }

@@ -2,6 +2,11 @@ namespace DirectoryService.Domain.Departments;
 
 public sealed class DepartmentPosition
 {
+    // Для EF Core
+    private DepartmentPosition()
+    {
+    }
+    
     public DepartmentPosition(Guid departmentId, Guid positionId)
     {
         Id = Guid.CreateVersion7();

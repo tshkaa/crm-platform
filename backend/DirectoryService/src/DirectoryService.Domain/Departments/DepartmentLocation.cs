@@ -2,6 +2,11 @@ namespace DirectoryService.Domain.Departments;
 
 public sealed class DepartmentLocation
 {
+    // Для EF Core
+    private DepartmentLocation()
+    {
+    }
+    
     public DepartmentLocation(Guid departmentId, Guid locationId, bool isPrimary)
     {
         if (departmentId == Guid.Empty)

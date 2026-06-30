@@ -6,6 +6,11 @@ namespace DirectoryService.Domain.Departments;
 
 public sealed class Department
 {
+    // Для EF Core
+    private Department()
+    {
+    }
+    
     public Department(
         Title name,
         DepartmentSlug slug,
@@ -43,11 +48,11 @@ public sealed class Department
 
     public Guid Id { get; }
 
-    public Title Name { get; private set; }
+    public Title Name { get; private set; } = null!;
 
-    public DepartmentSlug Slug { get; private set; }
+    public DepartmentSlug Slug { get; private set; } = null!;
 
-    public DepartmentPath Path { get; private set; }
+    public DepartmentPath Path { get; private set; } = null!;
 
     public Guid? ParentId { get; private set; }
 
