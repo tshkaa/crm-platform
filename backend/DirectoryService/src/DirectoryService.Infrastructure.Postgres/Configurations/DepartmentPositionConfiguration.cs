@@ -15,5 +15,13 @@ public class DepartmentPositionConfiguration : IEntityTypeConfiguration<Departme
         builder.Property(dp => dp.Id)
             .ValueGeneratedNever()
             .HasColumnName("id");
+        
+        builder.Property(dp => dp.DepartmentId)
+            .HasColumnName("department_id")
+            .IsRequired();
+        
+        builder.Property(dp => dp.PositionId)
+            .HasColumnName("position_id")
+            .IsRequired();
     }
 }

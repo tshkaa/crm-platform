@@ -1,4 +1,5 @@
 using DirectoryService.Domain;
+using DirectoryService.Domain.Departments;
 using DirectoryService.Domain.Locations;
 using DirectoryService.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -29,5 +30,20 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .HasColumnName("address")
             .HasMaxLength(LengthConstants.Length500)
             .IsRequired();
+        
+        builder.Property(l => l.CreatedAt)
+            .HasDefaultValueSql("timezone('utc', now())")
+            .HasColumnName("created_at")
+            .IsRequired();
+        
+        builder.Property(l => l.UpdatedAt)
+            .HasDefaultValueSql("timezone('utc', now())")
+            .HasColumnName("updated_at")
+            .IsRequired();
+        
+        builder.HasMany<DepartmentLocation>()
+            .WithOne()
+            .HasForeignKey(d => d.LocationId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

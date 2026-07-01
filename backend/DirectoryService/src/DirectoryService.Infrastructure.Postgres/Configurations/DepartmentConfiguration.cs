@@ -31,9 +31,38 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
             .IsRequired();
         
         builder.Property(d => d.Path)
-            .HasConversion(s => s.Value, v => new DepartmentPath(v))
+            .HasConversion(p => p.Value, v => new DepartmentPath(v))
             .HasColumnName("path")
             .HasMaxLength(LengthConstants.Length500)
             .IsRequired();
+        
+        builder.Property(d => d.ParentId)
+            .HasColumnName("parent_id")
+            .IsRequired(false);
+
+        builder.Property(d => d.CreatedAt)
+            .HasDefaultValueSql("timezone('utc', now())")
+            .HasColumnName("created_at")
+            .IsRequired();
+        
+        builder.Property(d => d.UpdatedAt)
+            .HasDefaultValueSql("timezone('utc', now())")
+            .HasColumnName("updated_at")
+            .IsRequired();
+        
+        builder.HasMany<DepartmentLocation>()
+            .WithOne()
+            .HasForeignKey(d => d.DepartmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany<DepartmentPosition>()
+            .WithOne()
+            .HasForeignKey(d => d.DepartmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne<Department>()
+            .WithMany()
+            .HasForeignKey(d => d.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
