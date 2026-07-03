@@ -1,4 +1,5 @@
 using DirectoryService.Contracts;
+using DirectoryService.Contracts.Departments;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DirectoryService.Web.Controllers;
@@ -8,21 +9,33 @@ namespace DirectoryService.Web.Controllers;
 public sealed class DepartmentsController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create(
+    public async Task<ActionResult<DepartmentResponse>> Create(
         [FromBody] CreateDepartmentRequest request,
         CancellationToken cancellationToken
         )
     {
-        return Ok("Department created successfully");
+        var stub = new DepartmentResponse(
+            Guid.NewGuid(),
+            request.Name,
+            request.Slug,
+            request.Path,
+            null,
+            DateTime.Now,
+            DateTime.Now
+        );
+        
+        return CreatedAtAction(nameof(GetById), new { departmentId = stub.Id }, stub);
     }
-    
+
     [HttpGet]
-    public async Task<IActionResult> Get(
+    public async Task<ActionResult<IReadOnlyList<DepartmentResponse>>> Get(
         [FromQuery] GetDepartmentRequest request,
         CancellationToken cancellationToken
         )
     {
-        return Ok("Get all departments");
+        var stub = new List<DepartmentResponse>();
+        
+        return Ok(stub);
     }
 
     [HttpGet("{departmentId:guid}")]
@@ -31,25 +44,35 @@ public sealed class DepartmentsController : ControllerBase
         CancellationToken cancellationToken
         )
     {
-        return Ok($"Get chosen department");
+        return NotFound("Department not found");
     }
-    
+
     [HttpPut("{departmentId:guid}")]
-    public async Task<IActionResult> Update(
+    public async Task<ActionResult<DepartmentResponse>> Update(
         [FromRoute] Guid departmentId,
         [FromBody] UpdateDepartmentRequest request,
         CancellationToken cancellationToken
         )
     {
-        return Ok($"Department updated successfully");
+        var stub = new DepartmentResponse(
+            Guid.NewGuid(),
+            request.Name,
+            request.Slug,
+            request.Path,
+            null,
+            DateTime.Now,
+            DateTime.Now
+        );
+        
+        return Ok(stub);
     }
-    
+
     [HttpDelete("{departmentId:guid}")]
     public async Task<IActionResult> Delete(
         [FromRoute] Guid departmentId,
         CancellationToken cancellationToken
         )
     {
-        return Ok("Department deleted successfully");
+        return NoContent();
     }
 }
