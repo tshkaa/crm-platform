@@ -1,4 +1,5 @@
 using DirectoryService.Contracts.Locations;
+using DirectoryService.Core.Locations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DirectoryService.Web.Controllers;
@@ -7,22 +8,25 @@ namespace DirectoryService.Web.Controllers;
 [Route("[controller]")]
 public sealed class LocationsController : ControllerBase
 {
+    public readonly ILocationsService LocationsService;
+
+    public LocationsController(ILocationsService locationsService)
+    {
+        LocationsService = locationsService;
+    }
+
     [HttpPost]
-    public async Task<ActionResult<LocationResponse>> Create(
+    public async Task<ActionResult> Create(
         [FromBody] CreateLocationRequest request,
         CancellationToken cancellationToken
     )
     {
-        var stub = new LocationResponse(
-            Guid.NewGuid(),
-            request.Name,
-            request.Address,
-            DateTime.Now,
-            DateTime.Now
-            );
+        var locationId = await LocationsService.Create(request, cancellationToken);
         
-        return CreatedAtAction(nameof(GetById), new { locationId = stub.Id }, stub);
-    }
+        return CreatedAtAction(nameof(GetById),
+            new { locationId },
+            new { locationId });
+    }   
 
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<LocationResponse>>> Get(
