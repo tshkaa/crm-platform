@@ -24,12 +24,28 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .HasColumnName("name")
             .HasMaxLength(LengthConstants.Length100)
             .IsRequired();
-        
-        builder.Property(l => l.Address)
-            .HasConversion(a => a.Value, v => new LocationAddress(v))
-            .HasColumnName("address")
-            .HasMaxLength(LengthConstants.Length500)
-            .IsRequired();
+
+        builder.OwnsOne(l => l.Address, lb =>
+        {
+            lb.ToJson("address");
+
+            lb.Property(a => a.City)
+                .HasColumnName("city")
+                .IsRequired()
+                .HasMaxLength(LengthConstants.Length100);
+            lb.Property(a => a.Street)
+                .HasColumnName("street")
+                .IsRequired()
+                .HasMaxLength(LengthConstants.Length100);
+            lb.Property(a => a.Building)
+                .HasColumnName("building")
+                .IsRequired()
+                .HasMaxLength(LengthConstants.Length100);
+            lb.Property(a => a.Apartment)
+                .HasColumnName("apartment")
+                .IsRequired()
+                .HasMaxLength(LengthConstants.Length100);
+        });
         
         builder.Property(l => l.CreatedAt)
             .HasDefaultValueSql("timezone('utc', now())")

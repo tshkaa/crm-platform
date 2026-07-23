@@ -12,6 +12,9 @@ dotnet_diagnostic.CA1062.severity = none
 # CA1812: не инстанцированные классы — ложные срабатывания на DI-классах
 dotnet_diagnostic.CA1812.severity = none
 
+# CA1051: публичные поля — используются для конструкторной DI в контроллерах
+dotnet_diagnostic.CA1051.severity = none
+
 # CA1034: вложенные типы — в vertical slice один файл содержит несколько типов (Command/Handler)
 dotnet_diagnostic.CA1034.severity = none
 
