@@ -24,8 +24,8 @@ public class CreateLocationValidator : AbstractValidator<CreateLocationRequest>
             .NotEmpty().WithMessage("Дом обязателен.")
             .MaximumLength(LengthConstants.Length100).WithMessage("Дом слишком длинный.");
         
+        // Квартира может быть необязательна (частный дом или квартиры в здании отсутствуют)
         RuleFor(x => x.Address.Apartment)
-            .NotEmpty().WithMessage("Квартира обязательна.")
             .MaximumLength(LengthConstants.Length100).WithMessage("Квартира слишком длинная.");
     }
 }

@@ -7,14 +7,14 @@ namespace DirectoryService.Core.Locations;
 
 public class LocationsService : ILocationsService
 {
-    private readonly ILocationRepository _locationRepository;
+    private readonly ILocationsRepository _locationsRepository;
     private readonly IValidator<CreateLocationRequest> _validator;
 
     public LocationsService(
-        ILocationRepository locationRepository, 
+        ILocationsRepository locationsRepository, 
         IValidator<CreateLocationRequest> validator)
     {
-        _locationRepository = locationRepository;
+        _locationsRepository = locationsRepository;
         _validator = validator;
     }
 
@@ -27,8 +27,8 @@ public class LocationsService : ILocationsService
             throw new ValidationException(validationResult.Errors);
         }
         
-        var requestResult = await _locationRepository.NameIsUniqueAsync(request.Name, cancellationToken);
-
+        var requestResult = await _locationsRepository.NameIsUniqueAsync(request.Name, cancellationToken);
+        
         if (!requestResult)
         {
             throw new ArgumentException($"Имя {request.Name} уже используется.", nameof(request));
@@ -43,7 +43,7 @@ public class LocationsService : ILocationsService
                 request.Address.Apartment)
         );
         
-        await _locationRepository.AddAsync(location, cancellationToken);
+        await _locationsRepository.AddAsync(location, cancellationToken);
         
         return location.Id;
     }
