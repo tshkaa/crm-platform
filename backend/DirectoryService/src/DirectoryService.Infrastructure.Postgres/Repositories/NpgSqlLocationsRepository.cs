@@ -23,6 +23,7 @@ public class NpgSqlLocationsRepository : ILocationsRepository
     {
         using var connection = await _connectionFactory.CreateConnectionAsync(cancellationToken);
 
+        // Обязательно: Добавить транзакцию (Error, Result)
         const string locationInsertSql = """
                                          INSERT INTO locations
                                              (id, name, address, created_at, updated_at)
