@@ -30,19 +30,19 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             lb.ToJson("address");
 
             lb.Property(a => a.City)
-                .HasColumnName("city")
+                .HasJsonPropertyName("city")
                 .IsRequired()
                 .HasMaxLength(LengthConstants.Length100);
             lb.Property(a => a.Street)
-                .HasColumnName("street")
+                .HasJsonPropertyName("street")
                 .IsRequired()
                 .HasMaxLength(LengthConstants.Length100);
             lb.Property(a => a.Building)
-                .HasColumnName("building")
+                .HasJsonPropertyName("building")
                 .IsRequired()
                 .HasMaxLength(LengthConstants.Length100);
             lb.Property(a => a.Apartment)
-                .HasColumnName("apartment")
+                .HasJsonPropertyName("apartment")
                 .IsRequired()
                 .HasMaxLength(LengthConstants.Length100);
         });
